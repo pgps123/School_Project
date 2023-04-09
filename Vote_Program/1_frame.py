@@ -7,22 +7,38 @@ root.geometry("640x480")
 
 root.resizable(False, False) # x,y 크기 변경 불가
 
-frame_left = Frame(root, relief="solid", bd=1)
-frame_right = Frame(root, relief="solid", bd=1)
+def Login_button_cmd():
+    for widgets in root.winfo_children():
+        widgets.destroy()
 
-ID_label = Label(root, text="ID", width=5, height=2)
-ID_entry = Entry(root, width=20)
-PW_label = Label(root, text="PW", width=5, height=2)
-PW_entry = Entry(root, width=20)
-Login_button = Button(root, text="로그인", width=5, height=2)
+def Login_window():
+    frame_login = Frame(root)
+    frame_id = Frame(frame_login)
+    frame_pw = Frame(frame_login)
 
-frame_left.pack(side="left", fill="both", expand=True)
-frame_right.pack(side="right", fill="both", expand=True)
+    ID_label = Label(frame_id, text="ID", width=5, height=2)
+    ID_entry = Entry(frame_id, width=20)
+    PW_label = Label(frame_pw, text="PW", width=5, height=2)
+    PW_entry = Entry(frame_pw, width=20)
+    Login_button = Button(frame_login, text="로그인", width=25, height=1, command=Login_button_cmd)
 
-# ID_label.grid(row=0, column=0, padx=3, pady=3)
-# ID_entry.grid(row=0, column=1, padx=3, pady=3)
-# PW_label.grid(row=1, column=0, padx=3, pady=3)
-# PW_entry.grid(row=1, column=1, padx=3, pady=3)
-# Login_button.grid(row=2, column=0, columnspan=2, padx=3, pady=3)
+    frame_login.pack(fill="none", expand=True)
+    frame_id.pack(side="top")
+    frame_pw.pack(side="top")
+
+    ID_label.pack(side="left")
+    ID_entry.pack(side="right")
+    PW_label.pack(side="left")
+    PW_entry.pack(side="right")
+    Login_button.pack()
+
+def Vote_window():
+    frame_all_vote = Frame(root, relief="solid", bd=1)
+    frame_grade_vote = Frame(root, relief="solid", bd=1)
+    frame_class_vote = Frame(root, relief="solid", bd=1)
+
+# Login_window()
+
+Vote_window()
 
 root.mainloop()
