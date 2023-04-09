@@ -10,6 +10,7 @@ root.resizable(False, False) # x,y 크기 변경 불가
 def Login_button_cmd():
     for widgets in root.winfo_children():
         widgets.destroy()
+    Vote_window()
 
 def Login_window():
     frame_login = Frame(root)
@@ -19,7 +20,7 @@ def Login_window():
     ID_label = Label(frame_id, text="ID", width=5, height=2)
     ID_entry = Entry(frame_id, width=20)
     PW_label = Label(frame_pw, text="PW", width=5, height=2)
-    PW_entry = Entry(frame_pw, width=20)
+    PW_entry = Entry(frame_pw, width=20, show="*")
     Login_button = Button(frame_login, text="로그인", width=25, height=1, command=Login_button_cmd)
 
     frame_login.pack(fill="none", expand=True)
@@ -33,12 +34,14 @@ def Login_window():
     Login_button.pack()
 
 def Vote_window():
-    frame_all_vote = Frame(root, relief="solid", bd=1)
-    frame_grade_vote = Frame(root, relief="solid", bd=1)
-    frame_class_vote = Frame(root, relief="solid", bd=1)
+    frame_all_vote = LabelFrame(root, text="전학년 투표리스트", relief="solid", bd=1, width=200)
+    frame_grade_vote = LabelFrame(root, text="학년 투표리스트", relief="solid", bd=1)
+    frame_class_vote = LabelFrame(root, text="반 투표리스트", relief="solid", bd=1, width=200)
 
-# Login_window()
+    frame_all_vote.pack(side="left", fill="y")
+    frame_grade_vote.pack(fill="none")
+    frame_class_vote.pack(side="right", fill="y")
 
-Vote_window()
+Login_window()
 
 root.mainloop()
