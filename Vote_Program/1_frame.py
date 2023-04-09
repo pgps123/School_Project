@@ -3,7 +3,7 @@ import pygame
 
 root = Tk()
 root.title("문명투표함")
-root.geometry("640x480")
+root.geometry("900x480")
 
 root.resizable(False, False) # x,y 크기 변경 불가
 
@@ -34,13 +34,13 @@ def Login_window():
     Login_button.pack()
 
 def Vote_window():
-    frame_all_vote = LabelFrame(root, text="전학년 투표리스트", relief="solid", bd=1, width=200)
-    frame_grade_vote = LabelFrame(root, text="학년 투표리스트", relief="solid", bd=1)
-    frame_class_vote = LabelFrame(root, text="반 투표리스트", relief="solid", bd=1, width=200)
+    frame_all_vote = LabelFrame(root, text="전학년 투표리스트", relief="solid", bd=1, width=300)
+    frame_grade_vote = LabelFrame(root, text="학년 투표리스트", relief="solid", bd=1, width=300)
+    frame_class_vote = LabelFrame(root, text="반 투표리스트", relief="solid", bd=1, width=300)
 
     frame_all_vote.pack(side="left", fill="y")
-    frame_grade_vote.pack(fill="none")
-    frame_class_vote.pack(side="right", fill="y")
+    frame_grade_vote.pack(side="left", fill="y")
+    frame_class_vote.pack(side="left", fill="y")
 
 Login_window()
 
