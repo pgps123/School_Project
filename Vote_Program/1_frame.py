@@ -1,10 +1,22 @@
 from tkinter import *
-import pygame
+
+f = open("vote_list.txt", "r", encoding="utf8")
+f_list = f.readlines()
+for i in f_list:
+    if i == "\n":
+        f_list.remove("\n")
+
+for i in range(len(f_list)):
+    if f_list[i] == '전교생 투표 리스트\n':
+        value1 = i
+    elif f_list[i] == '학년 투표 리스트\n':
+        value2 = i
+    elif f_list[i] == '반 투표 리스트\n':
+        value3 = i
 
 root = Tk()
 root.title("문명투표함")
 root.geometry("900x480")
-
 root.resizable(False, False) # x,y 크기 변경 불가
 
 def Login_button_cmd():
@@ -42,6 +54,15 @@ def Vote_window():
     frame_grade_vote.pack(side="left", fill="y")
     frame_class_vote.pack(side="left", fill="y")
 
+    for i in range(value1 + 1, value2):
+        button_all = Button(frame_all_vote, text=f_list[i], width=41).pack(side="top", fill="x")
+    for i in range(value2 + 1, value3):
+        button_grade = Button(frame_grade_vote, text=f_list[i], width=41).pack(side="top", fill="x")
+    for i in range(value3 + 1, len(f_list) - 1):
+        button_class = Button(frame_class_vote, text=f_list[i], width=41).pack(side="top", fill="x")
+
 Login_window()
+
+f.close()
 
 root.mainloop()
