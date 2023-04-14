@@ -21,12 +21,15 @@ root.resizable(False, False) # x,y 크기 변경 불가
 
 def all_vote_list():
     all_file = open("vote_all_list.txt", "r", encoding="utf8")
+    all_file_list = all_file.readlines()
 
 def grade_vote_list():
     grade_file = open("vote_grade_list.txt", "r", encoding="utf8")
+    grade_file_list = grade_file.readlines()
 
 def class_vote_list():
     class_file = open("vote_class_list.txt", "r", encoding="utf8")
+    class_file_list = class_file.readlines()
 
 def Login_button_cmd():
     for widgets in root.winfo_children():
