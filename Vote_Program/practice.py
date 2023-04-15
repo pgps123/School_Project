@@ -83,17 +83,7 @@ class VotingSystem:
         self.voting_window()
 
     def select_button_cmd(self):
-        if self.listbox_all.curselection():
-            print(self.all_list[self.listbox_all.curselection()[0]])
-
-        elif self.listbox_grade.curselection():
-            print(self.grade_list[self.listbox_grade.curselection()[0]])
-
-        elif self.listbox_class.curselection():
-            print(self.class_list[self.listbox_class.curselection()[0]])
-        
-        else:
-            print("error")
+        print("1")
 
 if __name__ == "__main__":
     root = Tk()
