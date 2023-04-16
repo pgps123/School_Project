@@ -1,4 +1,5 @@
 from tkinter import *
+import tkinter.messagebox as massagebox
 
 class VotingSystem:
     def __init__(self, root):
@@ -75,6 +76,9 @@ class VotingSystem:
             self.listbox_grade.insert(END, i)
         for i in self.class_list:
             self.listbox_class.insert(END, i)
+
+    def select_all(self):
+        self.open_file = open("vote_all_list.txt", "r", encoding="utf8")
             
     def login_button_cmd(self):
         for widgets in self.root.winfo_children():
@@ -84,13 +88,17 @@ class VotingSystem:
 
     def select_button_cmd(self):
         if self.listbox_all.curselection():
-            print(self.all_list[self.listbox_all.curselection()[0]])
+            self.user_select = self.all_list[self.listbox_all.curselection()[0]]
+            self.select_all()
+
         elif self.listbox_grade.curselection():
-            print(self.grade_list[self.listbox_grade.curselection()[0]])
+            self.user_select = self.grade_list[self.listbox_grade.curselection()[0]]
+
         elif self.listbox_class.curselection():
-            print(self.class_list[self.listbox_class.curselection()[0]])
+            self.user_select = self.class_list[self.listbox_class.curselection()[0]]
+
         else:
-            print("error")
+            massagebox.showwarning("Warning", "선택한 값이 없습니다.")
 
 if __name__ == "__main__":
     root = Tk()
