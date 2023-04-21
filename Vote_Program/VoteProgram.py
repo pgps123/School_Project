@@ -1,4 +1,5 @@
 from tkinter import *
+import tkinter.messagebox as messagebox
 
 class VotingSystem:
     def __init__(self, root):
@@ -75,6 +76,8 @@ class VotingSystem:
             self.listbox_grade.insert(END, i)
         for i in self.class_list:
             self.listbox_class.insert(END, i)
+
+        self.f.close()
             
     def login_button_cmd(self):
         for widgets in self.root.winfo_children():
@@ -84,16 +87,45 @@ class VotingSystem:
 
     def select_button_cmd(self):
         if self.listbox_all.curselection():
-            print(self.all_list[self.listbox_all.curselection()[0]])
+            self.user_select = self.all_list[self.listbox_all.curselection()[0]]
+            self.open_all_list_detail = open("vote_all_list.txt", "r", encoding="utf8")
+            self.all_list_detail = self.open_all_list_detail.readlines()
+            
+            for i in self.all_list_detail:
+                if i == "\n":
+                    self.all_list_detail.remove("\n")
+
+            for i in range(len(self.all_list_detail)):
+                if self.all_list_detail[i][:-2] == self.user_select[:-2] or self.all_list_detail[i][:-2] == self.user_select or self.all_list_detail[i] == self.user_select[:-2] or self.all_list_detail[i] == self.user_select:
+                    self.user_select_index = i
+                    break
+                    
+            self.open_all_list_detail.close()
 
         elif self.listbox_grade.curselection():
-            print(self.grade_list[self.listbox_grade.curselection()[0]])
+            self.user_select = self.grade_list[self.listbox_grade.curselection()[0]]
+            self.open_grade_list_detail = open("vote_grade_list.txt", "r", encoding="utf8")
+            self.grade_list_detail = self.open_grade_list_detail.readlines()
+            
+            for i in self.grade_list_detail:
+                if i == "\n":
+                    self.grade_list_detail.remove("\n")
+
+            self.open_grade_list_detail.close()
 
         elif self.listbox_class.curselection():
-            print(self.class_list[self.listbox_class.curselection()[0]])
+            self.user_select = self.class_list[self.listbox_class.curselection()[0]]
+            self.open_class_list_detail = open("vote_class_list.txt", "r", encoding="utf8")
+            self.class_list_detail = self.open_class_list_detail.readlines()
+
+            for i in self.class_list_detail:
+                if i == "\n":
+                    self.class_list_detail.remove("\n")
+
+            self.open_class_list_detail.close()
         
         else:
-            print("error")
+            messagebox.showwarning("warning", "선택한 값이 없습니다.")
 
 if __name__ == "__main__":
     root = Tk()

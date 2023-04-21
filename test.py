@@ -1,8 +1,7 @@
-for i in range(1, 100):
-    print("i", i)
-    continue
-    for j in range(1, 10):
-        print("j", j)
-        continue
-    print("test")
-print("cls")
+a = 3
+b = 2
+
+if (a or b) == 3:
+    print('True')
+else:
+    print("False")
