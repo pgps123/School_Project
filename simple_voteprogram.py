@@ -51,7 +51,7 @@ class mini_voteprogram:
         elif self.user_select == 3:
             self.mini_vote_list[2] += 1
         else:
-            messagebox.showerror("Error", "선택한 값이 없습니다.")
+            messagebox.showwarning("Warning", "선택한 값이 없습니다.")
             self.hit = False
 
         self.people1_voting = self.mini_vote_list[0]
