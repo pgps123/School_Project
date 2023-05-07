@@ -230,5 +230,3 @@ if __name__ == "__main__":
     root = Tk()
     app = VotingSystem(root)
     root.mainloop()
-
-    
