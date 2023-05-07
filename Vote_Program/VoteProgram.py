@@ -84,7 +84,6 @@ class VotingSystem:
             self.listbox_class.insert(END, i[0:-1])
 
         self.f.close()
-            
 
     def voting_window_by_all_list(self):
         self.root.title(self.user_select[:-1])
@@ -163,8 +162,9 @@ class VotingSystem:
         self.write_voting_file = open(self.user_select[:-1], "w", encoding="utf8")
 
         self.write_voting_file.write("")
-        for i in (len(self.voting_number_list)):
-            self.write_voting_file.writelines("test", end=" ")
+        for i in range(len(self.voting_number_list)):
+            self.write_voting_file.writelines("{0} ".format(self.voting_number_list[i]))
+        messagebox.showinfo("Information", "투표가 완료되었습니다.")
 
         self.write_voting_file.close()
 
@@ -224,7 +224,7 @@ class VotingSystem:
             self.open_class_list_detail.close()
 
         else:
-            messagebox.showwarning("Warning", "선택한 값이 없습니다.")        
+            messagebox.showwarning("Warning", "선택한 값이 없습니다.")
 
 if __name__ == "__main__":
     root = Tk()
