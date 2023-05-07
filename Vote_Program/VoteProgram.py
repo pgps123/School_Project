@@ -20,7 +20,7 @@ class VotingSystem:
         self.ID_entry = Entry(self.frame_id, width=20)
         self.PW_label = Label(self.frame_pw, text="PW", width=5, height=2)
         self.PW_entry = Entry(self.frame_pw, width=20, show="*")
-        self.login_button = Button(self.frame_login, text="로그인", width=25, height=1, command=self.clear_cmd)
+        self.login_button = Button(self.frame_login, text="로그인", width=25, height=1, command=self.voting_list_window)
 
         self.frame_login.pack(fill="none", expand=True)
         self.frame_id.pack(side="top")
@@ -33,6 +33,9 @@ class VotingSystem:
         self.login_button.pack()
 
     def voting_list_window(self):
+        for widgets in self.root.winfo_children():
+            widgets.destroy()
+
         self.root.title("투표 리스트")
 
         self.f = open("vote_list.txt", "r", encoding="utf8")
@@ -94,19 +97,76 @@ class VotingSystem:
         if self.all_list_detail[self.user_select_index][-2] == "1":
             self.voting_question = Label(self.root, text=self.all_list_detail[self.user_select_index + 1][:-1]).pack()
             self.voting_index = Text(self.root).pack()
-            self.finish_button = Button(self.root, text="완료", commnad=self.finish_button_cmd)
+            self.finish_button = Button(self.root, text="완료", commnad=self.finish_question_cmd).pack()
         else:
             for i in range(int(self.all_list_detail[self.user_select_index][-2])):
                 self.voting_index = Radiobutton(self.root, text=self.all_list_detail[self.user_select_index + i + 1], variable=self.candidate_number, value=i).pack()
+            self.finish_button = Button(self.root, text="완료", command=self.finish_voting_cmd).pack()
 
-    def finish_button_cmd(self):
-        pass
+        self.return_button = Button(self.root, text="돌아가기", command=self.voting_list_window).pack()
 
-    def clear_cmd(self):
+    def voting_window_by_grade_list(self):
+        self.root.title(self.user_select[:-1])
+
+        self.candidate_number = IntVar()
+
         for widgets in self.root.winfo_children():
             widgets.destroy()
+        
+        if self.grade_list_detail[self.user_select_index][-2] == "1":
+            self.voting_question = Label(self.root, text=self.grade_list_detail[self.user_select_index + 1][:-1]).pack()
+            self.voting_index = Text(self.root).pack()
+            self.finish_button = Button(self.root, text="완료", commnad=self.finish_question_cmd).pack()
+        else:
+            for i in range(int(self.grade_list_detail[self.user_select_index][-2])):
+                self.voting_index = Radiobutton(self.root, text=self.grade_list_detail[self.user_select_index + i + 1], variable=self.candidate_number, value=i).pack()
+            self.finish_button = Button(self.root, text="완료", command=self.finish_voting_cmd).pack()
 
-        self.voting_list_window()
+        self.return_button = Button(self.root, text="돌아가기", command=self.voting_list_window).pack()
+
+    def voting_window_by_class_list(self):
+        self.root.title(self.user_select[:-1])
+
+        self.candidate_number = IntVar()
+
+        for widgets in self.root.winfo_children():
+            widgets.destroy()
+        
+        if self.class_list_detail[self.user_select_index][-2] == "1":
+            self.voting_question = Label(self.root, text=self.class_list_detail[self.user_select_index + 1][:-1]).pack()
+            self.voting_index = Text(self.root).pack()
+            self.finish_button = Button(self.root, text="완료", commnad=self.finish_question_cmd).pack()
+        else:
+            for i in range(int(self.class_list_detail[self.user_select_index][-2])):
+                self.voting_index = Radiobutton(self.root, text=self.class_list_detail[self.user_select_index + i + 1], variable=self.candidate_number, value=i).pack()
+            self.finish_button = Button(self.root, text="완료", command=self.finish_voting_cmd).pack()
+
+        self.return_button = Button(self.root, text="돌아가기", command=self.voting_list_window).pack()
+
+    def finish_question_cmd(self):
+        pass
+
+    def finish_voting_cmd(self):
+        self.open_voting_file = open(self.user_select[:-1], "r", encoding="utf8")
+        
+        self.voting_number = self.open_voting_file.readline()
+        self.voting_number_list = list(map(int, self.voting_number.split()))
+        self.voting_select = self.candidate_number.get()
+
+        self.open_voting_file.close()
+
+        self.voting_number_list[self.voting_select] += 1
+
+        self.finish_voting_write_cmd()
+
+    def finish_voting_write_cmd(self):
+        self.write_voting_file = open(self.user_select[:-1], "w", encoding="utf8")
+
+        self.write_voting_file.write("")
+        for i in (len(self.voting_number_list)):
+            self.write_voting_file.writelines("test", end=" ")
+
+        self.write_voting_file.close()
 
     def select_button_cmd(self):
         if self.listbox_all.curselection():
@@ -131,18 +191,36 @@ class VotingSystem:
             self.user_select = self.grade_list[self.listbox_grade.curselection()[0]]
             self.open_grade_list_detail = open("vote_grade_list.txt", "r", encoding="utf8")
             self.grade_list_detail = self.open_grade_list_detail.readlines()
+
             for i in self.grade_list_detail:
                 if i == "\n":
                     self.grade_list_detail.remove("\n")
+
+            for i in range(len(self.grade_list_detail)):
+                if self.grade_list_detail[i][:-2] == self.user_select[:-1] or self.grade_list_detail[i][:-2] == self.user_select or self.grade_list_detail[i] == self.user_select[:-1] or self.grade_list_detail[i] == self.user_select:
+                    self.user_select_index = i
+                    break
+
+            self.voting_window_by_grade_list()
+            
             self.open_grade_list_detail.close()
 
         elif self.listbox_class.curselection():
             self.user_select = self.class_list[self.listbox_class.curselection()[0]]
             self.open_class_list_detail = open("vote_class_list.txt", "r", encoding="utf8")
             self.class_list_detail = self.open_class_list_detail.readlines()
+
             for i in self.class_list_detail:
                 if i == "\n":
                     self.class_list_detail.remove("\n")
+
+            for i in range(len(self.class_list_detail)):
+                if self.class_list_detail[i][:-2] == self.user_select[:-1] or self.class_list_detail[i][:-2] == self.user_select or self.class_list_detail[i] == self.user_select[:-1] or self.class_list_detail[i] == self.user_select:
+                    self.user_select_index = i
+                    break
+
+            self.voting_window_by_class_list()
+
             self.open_class_list_detail.close()
 
         else:
