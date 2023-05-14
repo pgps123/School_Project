@@ -172,7 +172,8 @@ class VotingSystem:
 
         self.open_question = open(self.user_select[:-1], "w", encoding="utf8")
 
-        self.open_question_list.append(self.question_index.get("1.0", END))
+        print(type(self.question_index))
+        # self.open_question_list.append(self.question_index.get("1.0", END))
         for i in self.open_question_list:
             self.open_question.writelines(i)
 
