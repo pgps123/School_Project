@@ -112,17 +112,25 @@ class VotingSystem:
             widgets.destroy()
         
         if self.all_list_detail[self.user_select_index][-2] == "1":
-            self.voting_question = Label(self.root, text=self.all_list_detail[self.user_select_index + 1][:-1]).pack()
-            self.question_index = Text(self.root).pack()
-            self.finish_button = Button(self.root, text="설문 완료", command=lambda: self.finish_question_cmd(self.all_list_detail)).pack()
+            self.voting_question = Label(self.root, text=self.all_list_detail[self.user_select_index + 1][:-1])
+            self.question_index = Text(self.root)
+            self.finish_button = Button(self.root, text="설문 완료", command=lambda: self.finish_question_cmd(self.all_list_detail))
+
+            self.voting_question.pack()
+            self.question_index.pack()
+            self.finish_button.pack()
         else:
             for i in range(int(self.all_list_detail[self.user_select_index][-2])):
-                self.voting_index = Radiobutton(self.root, text=self.all_list_detail[self.user_select_index + i + 1], variable=self.candidate_number, value=i).pack()
-            self.finish_button = Button(self.root, text="투표 완료", command=self.finish_voting_cmd).pack()
+                self.voting_index = Radiobutton(self.root, text=self.all_list_detail[self.user_select_index + i + 1], variable=self.candidate_number, value=i)
+                self.voting_index.pack()
+            self.finish_button = Button(self.root, text="투표 완료", command=self.finish_voting_cmd)
+            self.finish_button.pack()
 
-            self.result_button = Button(self.root, text="결과 확인", command=lambda: self.result_button_cmd(self.all_list_detail)).pack()
+            self.result_button = Button(self.root, text="결과 확인", command=lambda: self.result_button_cmd(self.all_list_detail))
+            self.result_button.pack()
 
-        self.return_button = Button(self.root, text="돌아가기", command=self.voting_list_window).pack()
+        self.return_button = Button(self.root, text="돌아가기", command=self.voting_list_window)
+        self.return_button.pack()
 
     def voting_window_by_grade_list(self):
         self.root.title(self.user_select[:-1])
@@ -133,15 +141,21 @@ class VotingSystem:
             widgets.destroy()
         
         if self.grade_list_detail[self.user_select_index][-2] == "1":
-            self.voting_question = Label(self.root, text=self.grade_list_detail[self.user_select_index + 1][:-1]).pack()
-            self.question_index = Text(self.root).pack()
-            self.finish_button = Button(self.root, text="설문 완료", command=lambda: self.finish_question_cmd(self.grade_list_detail)).pack()
+            self.voting_question = Label(self.root, text=self.grade_list_detail[self.user_select_index + 1][:-1])
+            self.voting_question.pack()
+            self.question_index = Text(self.root)
+            self.question_index.pack()
+            self.finish_button = Button(self.root, text="설문 완료", command=lambda: self.finish_question_cmd(self.grade_list_detail))
+            self.finish_button.pack()
         else:
             for i in range(int(self.grade_list_detail[self.user_select_index][-2])):
-                self.voting_index = Radiobutton(self.root, text=self.grade_list_detail[self.user_select_index + i + 1], variable=self.candidate_number, value=i).pack()
-            self.finish_button = Button(self.root, text="투표 완료", command=self.finish_voting_cmd).pack()
+                self.voting_index = Radiobutton(self.root, text=self.grade_list_detail[self.user_select_index + i + 1], variable=self.candidate_number, value=i)
+                self.voting_index.pack()
+            self.finish_button = Button(self.root, text="투표 완료", command=self.finish_voting_cmd)
+            self.finish_button.pack()
 
-        self.return_button = Button(self.root, text="돌아가기", command=self.voting_list_window).pack()
+        self.return_button = Button(self.root, text="돌아가기", command=self.voting_list_window)
+        self.return_button.pack()
 
     def voting_window_by_class_list(self):
         self.root.title(self.user_select[:-1])
@@ -152,15 +166,21 @@ class VotingSystem:
             widgets.destroy()
         
         if self.class_list_detail[self.user_select_index][-2] == "1":
-            self.voting_question = Label(self.root, text=self.class_list_detail[self.user_select_index + 1][:-1]).pack()
-            self.question_index = Text(self.root).pack()
-            self.finish_button = Button(self.root, text="설문 완료", command=lambda: self.finish_question_cmd(self.class_list_detail)).pack()
+            self.voting_question = Label(self.root, text=self.class_list_detail[self.user_select_index + 1][:-1])
+            self.voting_question.pack()
+            self.question_index = Text(self.root)
+            self.question_index.pack()
+            self.finish_button = Button(self.root, text="설문 완료", command=lambda: self.finish_question_cmd(self.class_list_detail))
+            self.finish_button.pack()
         else:
             for i in range(int(self.class_list_detail[self.user_select_index][-2])):
-                self.voting_index = Radiobutton(self.root, text=self.class_list_detail[self.user_select_index + i + 1], variable=self.candidate_number, value=i).pack()
-            self.finish_button = Button(self.root, text="투표 완료", command=self.finish_voting_cmd).pack()
+                self.voting_index = Radiobutton(self.root, text=self.class_list_detail[self.user_select_index + i + 1], variable=self.candidate_number, value=i)
+                self.voting_index.pack()
+            self.finish_button = Button(self.root, text="투표 완료", command=self.finish_voting_cmd)
+            self.finish_button.pack()
 
-        self.return_button = Button(self.root, text="돌아가기", command=self.voting_list_window).pack()
+        self.return_button = Button(self.root, text="돌아가기", command=self.voting_list_window)
+        self.return_button.pack()
 
     def finish_question_cmd(self, temp):
         self.temp = temp
@@ -172,10 +192,14 @@ class VotingSystem:
 
         self.open_question = open(self.user_select[:-1], "w", encoding="utf8")
 
-        print(type(self.question_index))
-        # self.open_question_list.append(self.question_index.get("1.0", END))
+        self.user_input = self.question_index.get("1.0", END)
+        self.open_question_list.append(self.user_input)
+        self.open_question_list.append("\n")
         for i in self.open_question_list:
             self.open_question.writelines(i)
+        
+        self.question_index.delete("1.0", END)
+        messagebox.showinfo("Information", "설문이 완료되었습니다.")
 
         self.open_question.close()
 
