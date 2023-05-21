@@ -197,8 +197,6 @@ class VotingSystem:
         self.open_question_list.append("\n")
         for i in self.open_question_list:
             self.open_question.writelines(i)
-        
-        self.question_index.delete("1.0", END)
         messagebox.showinfo("Information", "설문이 완료되었습니다.")
 
         self.open_question.close()
